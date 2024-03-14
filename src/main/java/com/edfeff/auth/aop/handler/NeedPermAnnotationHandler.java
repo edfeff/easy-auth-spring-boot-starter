@@ -29,14 +29,14 @@ public class NeedPermAnnotationHandler extends AnnotationHandler {
             }
             if (needPerm.all()) {
                 for (String perm : value) {
-                    if (!user.getPerms().contains(perm)) {
+                    if (!user.perms().contains(perm)) {
                         throw new NeedPermException("NeedPerm[" + perm + "]");
                     }
                 }
             } else {
                 boolean hasOne = false;
                 for (String perm : value) {
-                    if (user.getPerms().contains(perm)) {
+                    if (user.perms().contains(perm)) {
                         hasOne = true;
                         break;
                     }

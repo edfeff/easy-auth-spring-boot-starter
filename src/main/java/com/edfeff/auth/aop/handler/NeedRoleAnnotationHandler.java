@@ -29,14 +29,14 @@ public class NeedRoleAnnotationHandler extends AnnotationHandler {
             }
             if (needRole.all()) {
                 for (String role : value) {
-                    if (!user.getRoles().contains(role)) {
+                    if (!user.roles().contains(role)) {
                         throw new NeedRoleException("NeedRole[" + role + "]");
                     }
                 }
             } else {
                 boolean hasOne = false;
                 for (String role : value) {
-                    if (user.getRoles().contains(role)) {
+                    if (user.roles().contains(role)) {
                         hasOne = true;
                         break;
                     }

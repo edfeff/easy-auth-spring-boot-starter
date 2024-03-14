@@ -5,33 +5,47 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-public class User {
-    private String name;
-    private Collection<String> roles;
-    private Collection<String> perms;
-    private Map<String, Object> attrs = new HashMap<>();
+public interface User {
+    String name();
 
-    public Map<String, Object> getAttrs() {
-        return attrs;
+    Collection<String> roles();
+
+    Collection<String> perms();
+
+    Map<String, Object> attrs();
+
+    User Anon = new DefaultUser("anon", new HashSet<>(), new HashSet<>());
+
+    class DefaultUser implements User {
+        private String name;
+        private Collection<String> roles;
+        private Collection<String> perms;
+        private Map<String, Object> attrs = new HashMap<>();
+
+        public DefaultUser(String name, Collection<String> roles, Collection<String> perms) {
+            this.name = name;
+            this.roles = roles;
+            this.perms = perms;
+        }
+
+        @Override
+        public String name() {
+            return name;
+        }
+
+        @Override
+        public Collection<String> roles() {
+            return roles;
+        }
+
+        @Override
+        public Collection<String> perms() {
+            return perms;
+        }
+
+        @Override
+        public Map<String, Object> attrs() {
+            return attrs;
+        }
     }
-
-    public User(String name, Collection<String> roles, Collection<String> perms) {
-        this.name = name;
-        this.roles = roles;
-        this.perms = perms;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Collection<String> getRoles() {
-        return roles;
-    }
-
-    public Collection<String> getPerms() {
-        return perms;
-    }
-
-    public static final User Anon = new User("anon", new HashSet<>(), new HashSet<>());
 }
